@@ -3,7 +3,7 @@ import time
 import shutil
 import sys
 
-seperating_char='/'
+seperating_char='\\'
 
 def sort_files_by_month(copyFromDir, copyToDir, valid_file_types=('.jpg','.jpeg','.png','.avi','.mov','.thm')):
     if len(sys.argv) > 1:
@@ -37,4 +37,4 @@ def sort_files_by_month(copyFromDir, copyToDir, valid_file_types=('.jpg','.jpeg'
         print('Copied: ', numCopied, '  Duplicates found: ', numDuplicates)
 
 if __name__ == '__main__':
-    sort_files_by_month(copyFromDir='/imports/', copyToDir='/photo-archive/', valid_file_types=('.jpg','.jpeg','.png','.avi','.mov','.thm','.tiff'))
+    sort_files_by_month(copyFromDir='c:\\imports', copyToDir='C:\\photo-archive', valid_file_types=('.jpg','.jpeg','.png','.avi','.mov','.thm','.tiff'))
