@@ -3,7 +3,6 @@ import time
 import shutil
 import sys
 
-seperating_char=os.sep
 
 def sort_files_by_month(copyFromDir, copyToDir, valid_file_types=('.jpg','.jpeg','.png','.avi','.mov','.thm')):
     if len(sys.argv) > 1:
@@ -14,10 +13,10 @@ def sort_files_by_month(copyFromDir, copyToDir, valid_file_types=('.jpg','.jpeg'
     for subdir,dirs,files in os.walk(copyFromDir):
         for file in files:
             if any(file.lower().endswith(x) for x in valid_file_types):  # checks if file ends with any of the values in the list
-                fn = subdir + seperating_char + file
+                fn = subdir + os.sep + file
                 dateCreated = os.stat(fn).st_birthtime
-                newDir = time.strftime(copyToDir + '/%Y' + seperating_char + '%m %B', time.localtime(dateCreated))
-                newFn = newDir + seperating_char + file
+                newDir = time.strftime(copyToDir + '/%Y' + os.sep + '%m %B', time.localtime(dateCreated))
+                newFn = newDir + os.sep + file
                 os.makedirs(newDir, exist_ok=True)
                 dupeCount = 1
                 while True:
@@ -31,7 +30,7 @@ def sort_files_by_month(copyFromDir, copyToDir, valid_file_types=('.jpg','.jpeg'
                         numDuplicates += 1
                         break
                     else:  # file is dupe. add num to end
-                        newFn = newDir + seperating_char + ('-' + str(dupeCount) + '.').join(file.split('.'))
+                        newFn = newDir + os.sep + ('-' + str(dupeCount) + '.').join(file.split('.'))
                         dupeCount += 1
                         continue
         print('Copied: ', numCopied, '  Duplicates found: ', numDuplicates)
