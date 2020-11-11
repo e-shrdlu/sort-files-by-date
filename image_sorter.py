@@ -3,6 +3,7 @@ import time
 import shutil
 import sys
 
+seperating_char=os.sep
 
 def sort_files_by_month(copyFromDir, copyToDir, valid_file_types=('.jpg','.jpeg','.png','.avi','.mov','.thm')):
     if len(sys.argv) > 1:
@@ -13,10 +14,10 @@ def sort_files_by_month(copyFromDir, copyToDir, valid_file_types=('.jpg','.jpeg'
     for subdir,dirs,files in os.walk(copyFromDir):
         for file in files:
             if any(file.lower().endswith(x) for x in valid_file_types):  # checks if file ends with any of the values in the list
-                fn = subdir + os.sep + file
+                fn = subdir + seperating_char + file
                 dateCreated = os.stat(fn).st_birthtime
-                newDir = time.strftime(copyToDir + '/%Y' + os.sep + '%m %B', time.localtime(dateCreated))
-                newFn = newDir + os.sep + file
+                newDir = time.strftime(copyToDir + '/%Y' + seperating_char + '%m %B', time.localtime(dateCreated))
+                newFn = newDir + seperating_char + file
                 os.makedirs(newDir, exist_ok=True)
                 dupeCount = 1
                 while True:
@@ -30,10 +31,10 @@ def sort_files_by_month(copyFromDir, copyToDir, valid_file_types=('.jpg','.jpeg'
                         numDuplicates += 1
                         break
                     else:  # file is dupe. add num to end
-                        newFn = newDir + os.sep + ('-' + str(dupeCount) + '.').join(file.split('.'))
+                        newFn = newDir + seperating_char + ('-' + str(dupeCount) + '.').join(file.split('.'))
                         dupeCount += 1
                         continue
         print('Copied: ', numCopied, '  Duplicates found: ', numDuplicates)
 
 if __name__ == '__main__':
-    sort_files_by_month(copyFromDir=os.sep+'imports', copyToDir=os.sep+'photo-archive', valid_file_types=('.jpg','.jpeg','.png','.avi','.mov','.thm','.tiff'))
+    sort_files_by_month(copyFromDir=seperating_char+'imports', copyToDir=seperating_char+'photo-archive', valid_file_types=('.jpg','.jpeg','.png','.avi','.mov','.thm','.tiff'))
