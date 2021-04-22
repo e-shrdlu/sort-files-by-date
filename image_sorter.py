@@ -21,19 +21,19 @@ def sort_files_by_month(copyFromDir, copyToDir, valid_file_types=('.jpg','.jpeg'
                 os.makedirs(newDir, exist_ok=True)
                 dupeCount = 1
                 while True:
-                    if not os.path.isfile(newFn):  # False if file exists already
+                    if not os.path.isfile(newFn):  # dont copy if file already there
                         shutil.copy2(fn, newFn)
                         print('COPIED  {oldLocation}  to  {newLocation}'.format(oldLocation=fn, newLocation=newFn))
                         numCopied += 1
                         break
-                    elif os.path.getsize(fn) == os.path.getsize(newFn):  # size of files is equal so files are assumed to be the same
+                    elif os.path.getsize(fn) == os.path.getsize(newFn):  # size of files is equal so files are assumed to be the same. TODO: change to filehash
                         print('DUPLICATE  {oldLocation}  to  {newLocation}'.format(oldLocation=fn, newLocation=newFn))
                         numDuplicates += 1
                         break
-                    else:  # file is dupe. add num to end
+                    else:  # file is not dupe, but filename exists. add num to end
                         newFn = newDir + seperating_char + ('-' + str(dupeCount) + '.').join(file.split('.'))
                         dupeCount += 1
-                        continue
+                        continue # for readability
         print('Copied: ', numCopied, '  Duplicates found: ', numDuplicates)
 
 if __name__ == '__main__':
