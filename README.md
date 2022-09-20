@@ -1,7 +1,3 @@
 # sort files by date
 
-sorts your files by the date
-
-## how does it work?
-
-it gets the date of your files, and then sorts them by it
+early script I made to sort a large amount of pictures. Used OS library to query creation date metadata to sort into folders for the year/month each picture was taken.
